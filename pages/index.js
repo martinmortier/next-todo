@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import ListPost from '../controllers/Todo-post'
 import Post from '../components/Post'
-import React, {useState} from 'react'
+import React, {useState, useRef } from 'react'
 //Static generation
 export async function getStaticProps(context) {
   return {
@@ -14,16 +14,30 @@ export async function getStaticProps(context) {
 
 export default function Home(props) {
   const [name, setName] = useState('')
+  const [author, setAuthor] = useState('')
+  const [done, setDone] = useState(false)
   const [listPost, setListPost] = useState(props.ListPost)
-   
+  const formRef = useRef(null)
   const handleName = event => {
     setName(event.target.value)
+  }
+  
+  const handleAuthor = event => {
+    setAuthor(event.target.value)
+  }
+
+  const handleDone = event => {
+    setDone(event.target.checked)
   }
 
   const handleSubmit = event => {
     event.preventDefault()
-    //const copyList = listPost
-    setListPost(ListPost.concat({id:3, name: name, done: true}))
+    let lastId = listPost[listPost.length-1].id
+    lastId++
+    setListPost(listPost.concat({id:lastId, name: name, author: author, done: done}))
+    console.log(formRef)
+    formRef.current.reset()
+    event.target.reset()
   }
 
   return (
@@ -40,13 +54,18 @@ export default function Home(props) {
         )}
         </ul>
         <h1>Add a post</h1>
-        <form onSubmit={handleSubmit}>
-        <label>
-          Nom : {' '}
-          <input type="text" value={name} onChange={handleName}/>
-        </label>
-        <input type="submit" value="Envoyer" />
-      </form>
+        <form onSubmit={handleSubmit} ref={formRef}>
+          <label>
+            Nom : {' '}
+            <input type="text" value={name} onChange={handleName} required/>
+          </label>
+          <label>
+            Author : {' '}
+            <input type="text" value={author} onChange={handleAuthor} required/>
+          </label>
+          <input type="checkbox" checked={done} onChange={handleDone} />
+          <input type="submit" value="Envoyer" />
+        </form>
       </main> 
     </div>
   )
