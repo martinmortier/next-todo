@@ -1,65 +1,53 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import ListPost from '../controllers/Todo-post'
+import Post from '../components/Post'
+import React, {useState} from 'react'
+//Static generation
+export async function getStaticProps(context) {
+  return {
+    props: {
+      ListPost
+    }
+  }
+}
 
-export default function Home() {
+export default function Home(props) {
+  const [name, setName] = useState('')
+  const [listPost, setListPost] = useState(props.ListPost)
+   
+  const handleName = event => {
+    setName(event.target.value)
+  }
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    //const copyList = listPost
+    setListPost(ListPost.concat({id:3, name: name, done: true}))
+  }
+
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>To-do in NextJS</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+        <h1>To do list</h1>
+        <ul>
+        {listPost.map(lp =>
+          <Post key={lp.id} name={lp.name} author={lp.author} done={lp.done} />
+        )}
+        </ul>
+        <h1>Add a post</h1>
+        <form onSubmit={handleSubmit}>
+        <label>
+          Nom : {' '}
+          <input type="text" value={name} onChange={handleName}/>
+        </label>
+        <input type="submit" value="Envoyer" />
+      </form>
+      </main> 
     </div>
   )
 }
