@@ -3,6 +3,7 @@ import styles from '../styles/Home.module.css'
 import ListPost from '../controllers/Todo-post'
 import Post from '../components/Post'
 import React, {useState, useRef } from 'react'
+import Link from 'next/link'
 //Static generation
 export async function getStaticProps(context) {
   return {
@@ -49,8 +50,15 @@ export default function Home(props) {
       <main className={styles.main}>
         <h1>To do list</h1>
         <ul>
-        {listPost.map(lp =>
-          <Post key={lp.id} name={lp.name} author={lp.author} done={lp.done} />
+        {listPost.map(lp =>(
+          //<Post key={lp.id} name={lp.name} author={lp.author} done={lp.done} />
+          <div key={lp.id}>
+            <Link href={`/post/${lp.id}`}>
+              <a>{lp.name}</a>
+            </Link>
+            <br />
+          </div>
+          )
         )}
         </ul>
         <h1>Add a post</h1>
