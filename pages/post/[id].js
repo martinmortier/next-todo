@@ -17,7 +17,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
     const id = context.params.id
-    const lp = ListPost.find(lp => lp.id === 1)
+    const lp = ListPost.find(lp => lp.id === parseInt(id))
     return {
         props: {lp: lp}
     }
