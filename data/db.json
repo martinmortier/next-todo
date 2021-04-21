@@ -1,0 +1,16 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "name": "First post",
+      "done": true,
+      "author": "Eric"
+    },
+    {
+      "id": 2,
+      "name": "Second post",
+      "done": true,
+      "author": "Alain"
+    }
+  ]
+}
