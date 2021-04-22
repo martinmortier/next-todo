@@ -2,7 +2,9 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import React, {useState, useRef } from 'react'
 import Link from 'next/link'
-import {Typography, Button, Grid, Paper, TextField, Checkbox, FormControlLabel} from '@material-ui/core'
+import { Typography, Button, Grid, Paper, TextField, Checkbox, FormControlLabel } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles';
+
 import axios from 'axios'
 //Static generation
 export async function getStaticProps(context) {
@@ -15,12 +17,21 @@ export async function getStaticProps(context) {
   }
 }
 
+const useStyles = makeStyles({
+  paper : { 
+    textAlign : 'center',
+    padding: '5% 5%',
+  }
+})
+
+
 export default function Home(props) {
   const [name, setName] = useState('')
   const [author, setAuthor] = useState('')
   const [done, setDone] = useState(false)
   const [listPost, setListPost] = useState(props.listPost)
   const formRef = useRef(null)
+  const classes = useStyles()
   const handleName = event => {
     setName(event.target.value)
   }
@@ -54,15 +65,15 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <Typography variant="h1" >To do list</Typography>
-        <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
+        <Typography variant="h1">To do list</Typography>
+        <Grid container spacing={3}>
         {listPost.map(lp =>(
           //<Post key={lp.id} name={lp.name} author={lp.author} done={lp.done} />
           <Grid item key={lp.id} xs={12} md={12} lg={12}>
-            <Paper elevation={3}>
-              <Typography align="center">
+            <Paper elevation={3} className={classes.paper}>
+              <Typography>
               <Link href={`/post/${lp.id}`}>
-                <a style={{textAlign:"center"}}>{lp.name}</a>
+                <a>{lp.name}</a>
               </Link>
               </Typography>
               <br />
@@ -73,9 +84,9 @@ export default function Home(props) {
           )
         )}
         </Grid>
-        <h1 >Add a post</h1>
+        <h1>Add a post</h1>
         <form onSubmit={handleSubmit} ref={formRef} style={{width:"100%",textAlign:"center"}}>
-          <Paper elevation={3}>
+          <Paper className={classes.paper} elevation={3}>
             <TextField id="name" label="Name" type="text" value={name} onChange={handleName} required /> 
             <br />
             <TextField id="author" label="Author" type="text" value={author} onChange={handleAuthor} required/>
