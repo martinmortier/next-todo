@@ -1,7 +1,6 @@
-import React from 'React'
 import '../styles/globals.css'
 import Head from 'next/head'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 
 import { frFR } from '@material-ui/core/locale';
 const theme = createMuiTheme({
