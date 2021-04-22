@@ -1,21 +1,21 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import React, {useState, useRef } from 'react'
+import React, {useState, useRef, useContext } from 'react'
 import Link from 'next/link'
 import { Typography, Button, Grid, Paper, TextField, Checkbox, FormControlLabel} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import PostGrid from '../components/PostGrid'
 import axios from 'axios'
-
 const useStyles = makeStyles({
   paper : { 
     textAlign : 'center',
     padding: '5% 5%',
   }
 })
+
 //Static generation
 export async function getStaticProps(context) {
-  const res = await fetch('http://localhost:3001/posts')
+  const res = await fetch(`${process.env.URL}/posts`)
   const listPost = await res.json()
   return {
     props: {
@@ -31,6 +31,8 @@ export default function Home(props) {
   const [listPost, setListPost] = useState(props.listPost)
   const formRef = useRef(null)
   const classes = useStyles()
+  console.log(URL)
+
   const handleName = event => {
     setName(event.target.value)
   }
