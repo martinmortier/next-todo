@@ -11,6 +11,12 @@
       "name": "Second post",
       "done": true,
       "author": "Alain"
+    },
+    {
+      "id": 3,
+      "name": "Third post",
+      "author": "Alain Mitchel",
+      "done": false
     }
   ]
 }

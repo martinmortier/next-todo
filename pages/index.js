@@ -2,10 +2,17 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import React, {useState, useRef } from 'react'
 import Link from 'next/link'
-import { Typography, Button, Grid, Paper, TextField, Checkbox, FormControlLabel } from '@material-ui/core'
+import { Typography, Button, Grid, Paper, TextField, Checkbox, FormControlLabel} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-
+import PostGrid from '../components/PostGrid'
 import axios from 'axios'
+
+const useStyles = makeStyles({
+  paper : { 
+    textAlign : 'center',
+    padding: '5% 5%',
+  }
+})
 //Static generation
 export async function getStaticProps(context) {
   const res = await fetch('http://localhost:3001/posts')
@@ -16,14 +23,6 @@ export async function getStaticProps(context) {
     }
   }
 }
-
-const useStyles = makeStyles({
-  paper : { 
-    textAlign : 'center',
-    padding: '5% 5%',
-  }
-})
-
 
 export default function Home(props) {
   const [name, setName] = useState('')
@@ -97,6 +96,7 @@ export default function Home(props) {
           </Paper>
         </form>
       </main> 
+      <PostGrid listPost={listPost} />
     </div>
   )
 }
