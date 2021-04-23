@@ -1,19 +1,18 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import React, {useState, useRef } from 'react'
-import Link from 'next/link'
 import { Typography, Button, Grid, Paper, TextField, Checkbox, FormControlLabel} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
 import PostGrid from '../components/PostGrid'
 import axios from 'axios'
 import PropTypes from 'prop-types'
+import Post from '../components/Post'
+import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
-  paper : { 
-    textAlign : 'center',
-    padding: '5% 5%',
-  }
+    paper: {
+        textAlign : 'center',
+        padding: '5% 5%',
+    }
 })
-
 //Static generation
 export async function getStaticProps(context) {
   const res = await fetch(`${process.env.URL}/posts/`)
@@ -73,15 +72,7 @@ export default function Home(props) {
         <Grid container spacing={3}>
         {listPost.map(lp =>(
           <Grid item key={lp.id} xs={12} md={12} lg={12}>
-            <Paper elevation={3} className={classes.paper}>
-              <Typography>
-              <Link href={`/post/${lp.id}`}>
-                <a>{lp.name}</a>
-              </Link>
-              </Typography>
-              <br />
-              <Button variant="outlined" color="secondary" onClick={() => handleClick(lp.id)}>Delete</Button>
-            </Paper>
+            <Post id={lp.id} name={lp.name} author={lp.author} done={lp.done} classes={classes} link={true} handleClick={handleClick} />
             <br />
           </Grid>
           )
