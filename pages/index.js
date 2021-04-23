@@ -49,12 +49,12 @@ export default function Home(props) {
     event.preventDefault()
     let lastId = listPost[listPost.length-1].id
     lastId++
-    await axios.post("http://localhost:3001/posts",{id:lastId, name: name, author: author, done: done})
+    await axios.post(`${process.env.URL}/posts`,{id:lastId, name: name, author: author, done: done})
     setListPost(listPost.concat({id:lastId, name: name, author: author, done: done}))
   }
 
   const handleClick = async id => {
-    await axios.delete(`http://localhost:3001/posts/${id}`)
+    await axios.delete(`${process.env.URL}/posts/${id}`)
     const newListPost = listPost.filter(lp => lp.id !== id)
     setListPost(newListPost)
   }
