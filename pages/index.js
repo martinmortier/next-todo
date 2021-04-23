@@ -16,11 +16,13 @@ const useStyles = makeStyles({
 
 //Static generation
 export async function getStaticProps(context) {
-  const res = await fetch(`${process.env.URL}/posts`)
+  const res = await fetch(`${process.env.URL}/posts/`)
   const listPost = await res.json()
+  const URL = process.env.URL
   return {
     props: {
-      listPost
+      listPost,
+      URL
     }
   }
 }
@@ -32,7 +34,8 @@ export default function Home(props) {
   const [listPost, setListPost] = useState(props.listPost)
   const formRef = useRef(null)
   const classes = useStyles()
-  console.log(URL)
+
+  const URL = props.URL
 
   const handleName = event => {
     setName(event.target.value)
@@ -50,12 +53,12 @@ export default function Home(props) {
     event.preventDefault()
     let lastId = listPost[listPost.length-1].id
     lastId++
-    await axios.post(`${process.env.URL}/posts`,{id:lastId, name: name, author: author, done: done})
+    await axios.post(`${URL}/posts`,{id:lastId, name: name, author: author, done: done})
     setListPost(listPost.concat({id:lastId, name: name, author: author, done: done}))
   }
 
   const handleClick = async id => {
-    await axios.delete(`${process.env.URL}/posts/${id}`)
+    await axios.delete(`${URL}/posts/${id}`)
     const newListPost = listPost.filter(lp => lp.id !== id)
     setListPost(newListPost)
   }
