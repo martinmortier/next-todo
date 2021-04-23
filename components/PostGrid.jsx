@@ -29,7 +29,6 @@ const PostGrid = ({listPost}) => {
                     Toolbar: GridToolbar,
                 }}
                 checkboxSelection
-                onSelectionModelChange={(newSelection) => console.log(newSelection.selectionModel)}
             />
         </div>
     )
