@@ -6,6 +6,7 @@ import { Typography, Button, Grid, Paper, TextField, Checkbox, FormControlLabel}
 import { makeStyles } from '@material-ui/core/styles';
 import PostGrid from '../components/PostGrid'
 import axios from 'axios'
+import PropTypes from 'prop-types'
 const useStyles = makeStyles({
   paper : { 
     textAlign : 'center',
@@ -101,4 +102,8 @@ export default function Home(props) {
       <PostGrid listPost={listPost} />
     </div>
   )
+}
+
+Home.propTypes = {
+  listPost : PropTypes.array
 }
