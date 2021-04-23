@@ -3,7 +3,7 @@ import {useRouter} from 'next/router'
 import Post from '../../components/Post'
 import Link from 'next/link'
 export const getStaticPaths = async () => {
-    const res = await fetch('http://localhost:3001/posts')
+    const res = await fetch(`${process.env.URL}/posts`)
     const listPost = await res.json()
     const paths = listPost.map(lp => ({
             params: { id: lp.id.toString()}
@@ -16,7 +16,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
     const id = context.params.id
-    const res = await fetch(`http://localhost:3001/posts/${id}`)
+    const res = await fetch(`${process.env.URL}/posts/${id}`)
     const lp = await res.json()
 
     return {
