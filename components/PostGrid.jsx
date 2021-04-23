@@ -16,10 +16,11 @@ const PostGrid = ({listPost}) => {
     exchangeElem()
 
     listsField.map( lf => {
-        columns.push({field: lf, headerName: lf.charAt(0).toUpperCase() + lf.slice(1), width:150})
+        lf === 'done' ?  columns.push({field: lf, headerName: lf.charAt(0).toUpperCase() + lf.slice(1), width:150, type : 'boolean'})
+         :  columns.push({field: lf, headerName: lf.charAt(0).toUpperCase() + lf.slice(1), width:150})
     })
     listPost.map(lp => {
-        rows.push({ id: lp.id, name: lp.name, done: <Checkbox defaultChecked />, author: lp.author})
+        rows.push({ id: lp.id, name: lp.name, done: lp.done, author: lp.author})
     })
     
     return (
