@@ -73,7 +73,6 @@ export default function Home(props) {
         <Typography variant="h1">To do list</Typography>
         <Grid container spacing={3}>
         {listPost.map(lp =>(
-          //<Post key={lp.id} name={lp.name} author={lp.author} done={lp.done} />
           <Grid item key={lp.id} xs={12} md={12} lg={12}>
             <Paper elevation={3} className={classes.paper}>
               <Typography>
