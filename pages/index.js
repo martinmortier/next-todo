@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import React, {useState, useRef, useContext } from 'react'
+import React, {useState, useRef } from 'react'
 import Link from 'next/link'
 import { Typography, Button, Grid, Paper, TextField, Checkbox, FormControlLabel} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
