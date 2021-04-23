@@ -34,7 +34,6 @@ export default function Home(props) {
   const [listPost, setListPost] = useState(props.listPost)
   const formRef = useRef(null)
   const classes = useStyles()
-
   const URL = props.URL
 
   const handleName = event => {
